@@ -1,1 +1,4 @@
-GRAM_poroject
+# 물어보램?
+
+GRAM 1학년 동아리 프로젝트 서버
+
