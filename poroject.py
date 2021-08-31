@@ -9,7 +9,7 @@ from flask import Flask, request, abort
 
 from werkzeug.exceptions import NotFound
 
-from config import MYSQL_DB_URL
+from config import MYSQL_DB_URL, secret
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -218,5 +218,5 @@ def comment_get():
 
 
 if __name__ == '__main__':
-    app.config['SECRET_KEY'] = 'super-secret'
-    app.run(debug=True, host="0.0.0.0")
+    app.config['SECRET_KEY'] = secret
+    app.run(host="0.0.0.0", debug=True)
