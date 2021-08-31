@@ -219,4 +219,4 @@ def comment_get():
 
 if __name__ == '__main__':
     app.config['SECRET_KEY'] = 'super-secret'
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0")
