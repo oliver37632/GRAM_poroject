@@ -131,7 +131,6 @@ def post():
     new_post = Post(
         title=title,
         content=content,
-
         created_at=datetime.datetime.now()
     )
 
