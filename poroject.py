@@ -97,6 +97,7 @@ def login():
     password = request.json['password']
 
     user = session.query(User).filter(User.id == id)
+
     if not user.scalar():
         abort(409, 'user id code does not match')
 
@@ -130,6 +131,7 @@ def post():
     new_post = Post(
         title=title,
         content=content,
+
         created_at=datetime.datetime.now()
     )
 
@@ -149,6 +151,7 @@ def post_get():
     if posts:
         return {
                    "posts": [{
+                       "id_pk": post.id,
                        "title": post.title,
                        "content": post.content,
                        "created_at": str(post.created_at)
