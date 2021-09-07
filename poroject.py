@@ -74,7 +74,7 @@ def sigup():
 
     return {
                "message": "ssuccess"
-           }, 200
+           }, 201
 
 
 @app.route('/auth', methods=['POST'])
