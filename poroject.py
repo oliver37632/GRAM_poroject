@@ -127,8 +127,10 @@ def login():
 def post():
     title = request.json['title']
     content = request.json['content']
+    user_id = get_jwt_identity()
 
     new_post = Post(
+        user_id=user_id,
         title=title,
         content=content,
         created_at=datetime.datetime.now()
