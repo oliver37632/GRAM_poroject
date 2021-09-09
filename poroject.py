@@ -145,26 +145,33 @@ def post():
 @app.route('/post', methods=['GET'])
 @jwt_required()
 def post_get():
-    posts = session.query(Post).all()
+
+    posts = session.query(
+        Post.id,
+        Post.title,
+        Post.content,
+        Post.created_at,
+        User.name
+    ).join(User, User.id == Post.user_id)
 
     if posts:
         return {
                    "posts": [{
-                       "id_pk": post.id,
-                       "title": post.title,
-                       "content": post.content,
+                       "name": name,
+                       "id_pk": id,
+                       "title": title,
+                       "content": content,
                        "created_at": str(post.created_at)
-                   } for post in posts]
+                   } for id, title, content, creatde_at, name in posts]
                }, 200
 
     else:
         return abort(404, 'There is not any post')
 
-
 @app.route('/post/<int:id>', methods=['DELETE'])
 @jwt_required()
 def post_delete(id):
-    post_del = session.query(Post).firter(Post.id_pk == id)
+    post_del = session.query(Post).filter(Post.id == id)
 
     if not post_del.scalar():
         raise NotFound('Not Find')
