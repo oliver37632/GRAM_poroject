@@ -161,8 +161,8 @@ def post_get():
                        "id_pk": id,
                        "title": title,
                        "content": content,
-                       "created_at": str(post.created_at)
-                   } for id, title, content, creatde_at, name in posts]
+                       "created_at": created_at
+                   } for id, title, content, created_at, name in posts]
                }, 200
 
     else:
