@@ -131,7 +131,7 @@ def post():
         user_id=user_id,
         title=title,
         content=content,
-        created_at=DATETIME.datetime.now()
+        created_at=datetime.datetime.now()
     )
 
     session.add(new_post)
@@ -199,7 +199,7 @@ def comment_post():
         post_id=post_id,
         content=content,
         user_id=user_id,
-        created_at=DATETIME.datetime.now()
+        created_at=datetime.datetime.now()
     )
 
     session.add(new_comment)
