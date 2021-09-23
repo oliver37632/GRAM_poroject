@@ -1,5 +1,3 @@
-import datetime
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -223,7 +221,7 @@ def comment_get():
                "comment_join": [{
                    "name": name,
                    "content": content
-               } for name, content in comment_join]
+               } for content, name in comment_join]
            }, 201
 
 
