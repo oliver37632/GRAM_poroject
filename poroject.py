@@ -131,7 +131,7 @@ def post():
         user_id=user_id,
         title=title,
         content=content,
-        created_at=datetime.datetime.now()
+        created_at=DATETIME.datetime.now()
     )
 
     session.add(new_post)
@@ -168,13 +168,17 @@ def post_get():
     else:
         return abort(404, 'There is not any post')
 
+
 @app.route('/post/<int:id>', methods=['DELETE'])
 @jwt_required()
 def post_delete(id):
     post_del = session.query(Post).filter(Post.id == id)
+    token_Usr = get_jwt_identity()
+    ck_user = session.query(Post).filtet(Post.user_id == token_Usr)
 
-    if not post_del.scalar():
-        raise NotFound('Not Find')
+    if not ck_user():
+        if not post_del.scalar():
+            raise NotFound('Not Find')
 
     post_del.delete()
     session.commit()
@@ -195,7 +199,7 @@ def comment_post():
         post_id=post_id,
         content=content,
         user_id=user_id,
-        created_at=datetime.datetime.now()
+        created_at=DATETIME.datetime.now()
     )
 
     session.add(new_comment)
