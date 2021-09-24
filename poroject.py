@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, VARCHAR, Integer, text, ForeignKey, TIMESTAMP, DATETIME
+from sqlalchemy import Column, VARCHAR, Integer, text, ForeignKey, DATETIME
 
 from flask import Flask, request, abort
 
@@ -131,7 +131,7 @@ def post():
         user_id=user_id,
         title=title,
         content=content,
-        created_at=datetime.datetime.now
+        created_at=datetime.datetime.now()
     )
 
     session.add(new_post)
@@ -199,7 +199,7 @@ def comment_post():
         post_id=post_id,
         content=content,
         user_id=user_id,
-        created_at=datetime.datetime.now
+        created_at=datetime.datetime.now()
     )
 
     session.add(new_comment)
