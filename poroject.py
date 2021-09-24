@@ -13,7 +13,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, get_jwt_identity
 
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 engine = create_engine(MYSQL_DB_URL)
 
