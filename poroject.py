@@ -176,8 +176,8 @@ def post_delete(id):
     token_Usr = get_jwt_identity()
     ck_user = session.query(Post).filtet(Post.user_id == token_Usr)
 
-    if not ck_user():
-        if not post_del.scalar():
+    if not post_del.scalar():
+        if not ck_user():
             raise NotFound('Not Find')
 
     post_del.delete()
