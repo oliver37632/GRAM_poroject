@@ -172,21 +172,16 @@ def post_get():
 @app.route('/post/<int:id>', methods=['DELETE'])
 @jwt_required()
 def post_delete(id):
-    post_del = session.query(Post).filter(Post.id == id)
     token_Usr = get_jwt_identity()
-    ck_token = session.query(Post).fillter(Post.user_id == token_Usr)
+    post_del = session.query(Post).filter(Post.user_id == token_Usr , Post.id == id)
+
     if not post_del.scalar():
-        raise NotFound('Not Find')
-
-    if not ck_token.scalar():
-        abort(403, 'could not delete notice created by others')
-
+        abort(404, 'NotFound')
     post_del.delete()
     session.commit()
-
     return {
-               'message': 'success'
-           }, 200
+        "message": "success"
+    },404
 
 
 @app.route('/comment', methods=['POST'])  # comment?post_id=1
