@@ -174,10 +174,12 @@ def post_get():
 def post_delete(id):
     post_del = session.query(Post).filter(Post.id == id)
     token_Usr = get_jwt_identity()
-    ck_user = session.query(Post).filtet(Post.user_id == token_Usr)
-
-    if not post_del.scalar() and ck_user.scalar():
+    ck_token = session.query(Post).fillter(Post.user_id == token_Usr)
+    if not post_del.scalar():
         raise NotFound('Not Find')
+
+    if not ck_token.scalar():
+        abort(403, 'could not delete notice created by others')
 
     post_del.delete()
     session.commit()
