@@ -175,13 +175,16 @@ def post_delete(id):
     token_Usr = get_jwt_identity()
     post_del = session.query(Post).filter(Post.user_id == token_Usr , Post.id == id)
 
-    if not post_del.scalar():
-        abort(404, 'NotFound')
-    post_del.delete()
-    session.commit()
+    if post_del.scalar():
+        post_del.delete()
+        session.commit()
+        return {
+            "message": "success"
+        }, 200
+
     return {
-        "message": "success"
-    },404
+        "massage": "NotFound"
+    }, 404
 
 
 @app.route('/comment', methods=['POST'])  # comment?post_id=1
