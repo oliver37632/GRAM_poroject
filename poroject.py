@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, VARCHAR, Integer, text, ForeignKey, DATETIME
 
@@ -36,6 +36,8 @@ class Post(Base):
     created_at = Column(DATETIME, nullable=False, server_default=text("CURRENT_TIMESTAMP"))
     user_id = Column(VARCHAR(10), ForeignKey('user.id'))
 
+    comment = relationship("Comment", cascade="all,delete", backref="post")
+
 
 class User(Base):
     __tablename__ = 'user'
@@ -43,6 +45,9 @@ class User(Base):
     id = Column(VARCHAR(10), primary_key=True, autoincrement=True, server_default=text("CURRENT_TIMESTAMP"))
     password = Column(VARCHAR(255), nullable=True)
     name = Column(VARCHAR(5), nullable=True)
+
+    post = relationship("Post", cascade="all,delete", backref="user")
+    comment = relationship("Comment", cascade="all,delete", backref="user")
 
 
 class Comment(Base):
