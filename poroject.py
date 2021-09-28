@@ -176,12 +176,11 @@ def post_delete(id):
     post_del = session.query(Post).filter(Post.user_id == token_Usr , Post.id == id)
 
     if post_del.scalar():
-        post_del.delete()
+        session.delete(post_del)
         session.commit()
         return {
             "message": "success"
         }, 200
-
     return {
         "massage": "NotFound"
     }, 404
