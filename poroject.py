@@ -150,7 +150,6 @@ def post():
 @app.route('/post', methods=['GET'])
 @jwt_required()
 def post_get():
-
     posts = session.query(
         Post.id,
         Post.title,
@@ -178,18 +177,17 @@ def post_get():
 @jwt_required()
 def post_delete(id):
     token_Usr = get_jwt_identity()
-    post_del = session.query(Post).filter(Post.user_id == token_Usr , Post.id == id)
-    print(type(post_del))
-    print(post)
-    if post_del.scalar():
+    post_del = session.query(Post).filter(Post.user_id == token_Usr, Post.id == id).first()
+
+    if post_del:
         session.delete(post_del)
         session.commit()
         return {
-            "message": "success"
-        }, 200
+                   "message": "success"
+               }, 200
     return {
-        "massage": "NotFound"
-    }, 404
+               "massage": "NotFound"
+           }, 404
 
 
 @app.route('/comment', methods=['POST'])  # comment?post_id=1
