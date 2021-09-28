@@ -178,7 +178,7 @@ def post_get():
 @jwt_required()
 def post_delete(id):
     token_Usr = get_jwt_identity()
-    post_del = session.query(Post).filter(Post.user_id == token_Usr , Post.id == id)
+    post_del = session.query(Post).filter(Post.user_id == token_Usr , Post.id == id).one()
 
     if post_del.scalar():
         session.delete(post_del)
