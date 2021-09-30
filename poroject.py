@@ -84,7 +84,7 @@ def sigup():
 def auth():
     id = request.json["id"]
 
-    auth = session.query(User).filter(User.name == id)
+    auth = session.query(User).filter(User.name == id).first()
 
     if auth.scalar():
         return {
