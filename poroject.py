@@ -84,9 +84,9 @@ def sigup():
 def auth():
     id = request.json["id"]
 
-    auth = session.query(User).filter(User.name == id).first()
+    auth = session.query(User).filter(User.id == id)
 
-    if auth():
+    if auth.scalar():
         return {
                    "message": "overlap"
                }, 400
