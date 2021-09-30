@@ -86,7 +86,7 @@ def auth():
 
     auth = session.query(User).filter(User.name == id).first()
 
-    if auth.scalar():
+    if auth():
         return {
                    "message": "overlap"
                }, 400
